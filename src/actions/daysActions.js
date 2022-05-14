@@ -10,7 +10,7 @@ export const listDays = () => async (dispatch, getState) => {
         const days = getState().daysList.days;
         let data;
         if (!days) {
-            ({ data } = await axios.get("api/days"));
+            ({ data } = await axios.get("https://alex-fitness-log.herokuapp.com/api/days"));
         }
         dispatch({ type: DAYS_SUCCESS, payload: days ? days : data });
     } catch (e) {
@@ -22,7 +22,7 @@ export const listDays = () => async (dispatch, getState) => {
 export const addExercise = (dayId, date) => async (dispatch, getState) => {
     dispatch({ type: ADD_EXERCISE_REQUEST });
     try {
-        const { data } = await axios.post("api/days/add", { dayId, date });
+        const { data } = await axios.post("https://alex-fitness-log.herokuapp.com/api/days/add", { dayId, date });
         // dispatch({ type: ADD_EXERCISE_SUCCESS, payload: { days, newExercise, id } })
         dispatch({ type: ADD_EXERCISE_SUCCESS, payload: data })
     } catch (e) {
@@ -34,7 +34,7 @@ export const addExercise = (dayId, date) => async (dispatch, getState) => {
 export const editExercise = (newSets, newExercise, dayId, exerciseId) => async (dispatch, getState) => {
     dispatch({ type: EDIT_EXERCISE_REQUEST });
     try {
-        const { data } = await axios.patch(`/api/days/edit/${dayId}`, {
+        const { data } = await axios.patch(`https://alex-fitness-log.herokuapp.com//api/days/edit/${dayId}`, {
             newSets,
             newExercise,
             exerciseId,

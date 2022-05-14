@@ -4,7 +4,7 @@ import { EXERCISE_NAMES_FAILURE, EXERCISE_NAMES_REQUEST, EXERCISE_NAMES_SUCCESS 
 export const getExerciseNames = () => async (dispatch, getState) => {
     dispatch({ type: EXERCISE_NAMES_REQUEST });
     try {
-        const { data } = await axios.get("/api/exercises");
+        const { data } = await axios.get("https://alex-fitness-log.herokuapp.com//api/exercises");
         data.sort((a, b) => a.exercise.localeCompare(b.exercise));
         dispatch({ type: EXERCISE_NAMES_SUCCESS, payload: data });
     } catch (e) {
@@ -17,7 +17,7 @@ export const addExerciseName = (sets, exerciseName, currentDay) => async (dispat
     dispatch({ type: EXERCISE_NAMES_REQUEST });
     console.log("ACTION", sets)
     try {
-        const { data } = await axios.post("api/exercises/add", { sets, exerciseName, currentDay });
+        const { data } = await axios.post("https://alex-fitness-log.herokuapp.com/api/exercises/add", { sets, exerciseName, currentDay });
         dispatch({ type: EXERCISE_NAMES_SUCCESS, payload: data });
     } catch (e) {
         console.log(e);
@@ -28,7 +28,7 @@ export const addExerciseName = (sets, exerciseName, currentDay) => async (dispat
 export const editExerciseName = (exerciseName, exerciseNameId) => async (dispatch, getState) => {
     dispatch({ type: EXERCISE_NAMES_REQUEST });
     try {
-        const { data } = await axios.patch(`api/exercises/edit/${exerciseNameId}`, { exerciseName });
+        const { data } = await axios.patch(`https://alex-fitness-log.herokuapp.com/api/exercises/edit/${exerciseNameId}`, { exerciseName });
         dispatch({ type: EXERCISE_NAMES_SUCCESS, payload: data });
     } catch (e) {
         console.log(e);
@@ -39,7 +39,7 @@ export const editExerciseName = (exerciseName, exerciseNameId) => async (dispatc
 export const deleteExerciseName = (exerciseNameId) => async (dispatch, getState) => {
     dispatch({ type: EXERCISE_NAMES_REQUEST });
     try {
-        const { data } = await axios.delete(`api/exercises/edit/${exerciseNameId}`);
+        const { data } = await axios.delete(`https://alex-fitness-log.herokuapp.com/api/exercises/edit/${exerciseNameId}`);
         dispatch({ type: EXERCISE_NAMES_SUCCESS, payload: data });
     } catch (e) {
         console.log(e);
