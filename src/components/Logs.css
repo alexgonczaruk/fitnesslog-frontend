@@ -1,0 +1,234 @@
+.current-date {
+    font-size: larger;
+    font-weight: bold;
+    text-align: center;
+    width: 70%;
+}
+
+.Flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.chevron-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chevron {
+    height: 20px;
+    padding: 0 10px;
+    cursor: pointer;
+    display: inline;
+    vertical-align: middle;
+}
+
+.disabled {
+    color: gray;
+    cursor: auto !important;
+}
+
+.chevron:hover {
+    color: #279af1;
+}
+
+.disabled:hover {
+    color: gray !important;
+}
+
+.Log {
+    width: 100%;
+    padding: 0 10%;
+}
+
+@media only screen and (max-width: 1000px) {
+    .Log {
+        padding: 0;
+    }
+}
+
+.exercises {
+    padding: 5% 0;
+}
+
+.exercise {
+    font-size: medium;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.exercise-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+th {
+    text-align: center;
+    padding: 0 2px;
+}
+
+td {
+    text-align: center;
+}
+
+
+
+tr:nth-child(even) {background-color: #f7f7f7;}
+
+.exercise-name-holder {
+    position: relative;
+    text-align: left;
+    width: 55%;
+}
+
+.test {
+    width: 100%;
+    background-color: #1480d2;
+    padding: 1px 2px;
+    box-sizing: border-box;
+}
+
+.exercise-name {
+    font-weight: bold;
+    font-size: medium;
+    width: 100%;
+    /* box-sizing: border-box; */
+    border-radius: 0;
+    border-top: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    border-bottom: none;
+}
+
+.dropdown {
+    position: absolute;
+    border: 1px solid #e1e1e1;
+    /* box-sizing: border-box; */
+    width: 100%;
+    z-index: 100;
+}
+
+.dropdown-option {
+    /* box-sizing: border-box; */
+    background-color: #fff;
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 100%; */
+}
+
+.dropdown-option:hover {
+    background-color: #b1ddff !important;
+}
+
+.dropdown-option:nth-child(even) {background-color: #f7f7f7;}
+
+.edit-icon {
+    cursor: pointer;
+    width: 25px;
+}
+
+.edit-icon:hover {
+    color: #279af1;
+}
+
+.exercise-entry {
+    width: 75%;
+    text-align: center;
+}
+
+.visible {
+    text-align: right !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+input {
+    vertical-align: middle;
+}
+
+input:disabled {
+    color: black;
+    background-color: transparent;
+    border: none;
+}
+
+.add-holder {
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    padding: 25px;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-top: 1px solid rgb(238, 236, 236);
+}
+
+.add-exercise {
+    border: none;
+    border-radius: 0%;
+    background-color: #279af1;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.add-exercise:hover {
+    background-color: #1480d2;
+}
+
+.no-data {
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.plus-icon {
+    padding-left: 5px;
+}
+
+.delete {
+    padding-right: 10px;
+}
+
+.delete-icon {
+    cursor: pointer;
+}
+
+.delete-icon:hover {
+    color: #1480d2
+}
+
+.info-icon {
+    padding: 0 5px;
+}
+
+.info-icon:hover {
+    color: #279af1;
+}
+
+.exercisename-option {
+    width: 100%;
+}
