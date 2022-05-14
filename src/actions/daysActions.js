@@ -34,7 +34,7 @@ export const addExercise = (dayId, date) => async (dispatch, getState) => {
 export const editExercise = (newSets, newExercise, dayId, exerciseId) => async (dispatch, getState) => {
     dispatch({ type: EDIT_EXERCISE_REQUEST });
     try {
-        const { data } = await axios.patch(`https://alex-fitness-log.herokuapp.com//api/days/edit/${dayId}`, {
+        const { data } = await axios.patch(`https://alex-fitness-log.herokuapp.com/api/days/edit/${dayId}`, {
             newSets,
             newExercise,
             exerciseId,
