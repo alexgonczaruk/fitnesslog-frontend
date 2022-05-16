@@ -93,7 +93,7 @@ tr:nth-child(even) {background-color: #f7f7f7;}
 .exercise-name-holder {
     position: relative;
     text-align: left;
-    width: 50%;
+    width: 40%;
     box-sizing: border-box;
     padding: 0;
     /* z-index: 1; */
