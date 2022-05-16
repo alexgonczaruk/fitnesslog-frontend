@@ -36,10 +36,10 @@ export default function Log(props) {
         setExercise(e.target.value);
     }
 
-    const editHandler = () => {
+    const editHandler = (e) => {
         if (isEditing) {
             setIsEditing(false);
-            submitHandler();
+            submitHandler(e);
         } else {
             setIsEditing(true);
         }
@@ -81,12 +81,14 @@ export default function Log(props) {
         }
     }
 
-    const submitHandler = () => {
+    const submitHandler = (event) => {
         if (exercise === "") return;
+        if (event && event.preventDefault()) {
+            event.preventDefault();
+        }
         dispatch(editExercise(sets, exercise, dayId, exerciseId));
         const foundName = exerciseNames.find((exerciseName) => exerciseName.exercise.toString() === exercise.toString());
         if (!foundName) {
-            // console.log("SETS", sets)
             dispatch(addExerciseName(sets, exercise, currentDay));
         }
     }
@@ -125,7 +127,7 @@ export default function Log(props) {
 
     return (
         <div>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={(event) => submitHandler(event)}>
                 <table>
                     <thead>
                     <tr>
@@ -133,7 +135,7 @@ export default function Log(props) {
                         <th className="exercise-name-holder" ref={showDropdownRef}>
                             <input className="exercise-name" type="text" disabled={!isEditing} value={exercise} onClick={handleClickInside} onKeyUp={(e) => filterExerciseNamesHandler(e)} onChange={nameHandler}></input>
                             { isEditing && 
-                                <div className="dropdown">
+                                <div className={ `dropdown ${filteredExerciseNames && Object.keys(filteredExerciseNames).length > 0 && !clickedOutside ? 'dropdown-visible' : ''}` }>
                                     { filteredExerciseNames && Object.keys(filteredExerciseNames).length > 0 && !clickedOutside && 
                                         <div >
                                             {
@@ -152,7 +154,7 @@ export default function Log(props) {
                         <th>Weight</th>
                         <th>Sets</th>
                         <th>Reps</th>
-                        <th><FontAwesomeIcon icon={isEditing ? faFloppyDisk : faPenToSquare} className="edit-icon" onClick={editHandler}/></th>
+                        <th><FontAwesomeIcon icon={isEditing ? faFloppyDisk : faPenToSquare} className="edit-icon" onClick={(e) => editHandler(e)}/></th>
                     </tr>
                     </thead>
                     <tbody>

@@ -112,18 +112,20 @@ tr:nth-child(even) {background-color: #f7f7f7;}
     width: 100%;
     box-sizing: border-box;
     border-radius: 0;
-    border-top: 1px solid #e1e1e1;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
-    border-bottom: none;
+    border: 1px solid #e1e1e1;
 }
 
 .dropdown {
     position: absolute;
-    border: 1px solid #e1e1e1;
     box-sizing: border-box;
     width: 100%;
     z-index: 20;
+}
+
+.dropdown-visible {
+    border-right: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .dropdown-option {
