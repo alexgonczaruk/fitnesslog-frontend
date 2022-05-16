@@ -94,6 +94,9 @@ tr:nth-child(even) {background-color: #f7f7f7;}
     position: relative;
     text-align: left;
     width: 55%;
+    box-sizing: border-box;
+    padding: 0;
+    /* z-index: 1; */
 }
 
 .test {
@@ -107,7 +110,7 @@ tr:nth-child(even) {background-color: #f7f7f7;}
     font-weight: bold;
     font-size: medium;
     width: 100%;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     border-radius: 0;
     border-top: 1px solid #e1e1e1;
     border-left: 1px solid #e1e1e1;
@@ -118,7 +121,7 @@ tr:nth-child(even) {background-color: #f7f7f7;}
 .dropdown {
     position: absolute;
     border: 1px solid #e1e1e1;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     width: 100%;
     z-index: 100;
 }
@@ -133,6 +136,7 @@ tr:nth-child(even) {background-color: #f7f7f7;}
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
     /* width: 100%; */
 }
 
@@ -169,7 +173,7 @@ input {
 }
 
 input:disabled {
-    color: black;
+    color: #000000;
     background-color: transparent;
     border: none;
 }
