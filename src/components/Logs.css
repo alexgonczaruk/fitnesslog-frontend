@@ -176,11 +176,14 @@ input:disabled {
     color: #000000;
     background-color: transparent;
     border: none;
+    -webkit-text-fill-color: #000000;
+    opacity: 1; /* required on iOS */
 }
 
 .add-holder {
     text-align: center;
     position: sticky;
+    z-index: 150;
     bottom: 0;
     padding: 25px;
     left: 0;
