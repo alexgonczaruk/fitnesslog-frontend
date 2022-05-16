@@ -123,7 +123,7 @@ tr:nth-child(even) {background-color: #f7f7f7;}
     border: 1px solid #e1e1e1;
     box-sizing: border-box;
     width: 100%;
-    z-index: 100;
+    z-index: 20;
 }
 
 .dropdown-option {
@@ -136,7 +136,7 @@ tr:nth-child(even) {background-color: #f7f7f7;}
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
+    /* z-index: 30; */
     /* width: 100%; */
 }
 
@@ -183,7 +183,7 @@ input:disabled {
 .add-holder {
     text-align: center;
     position: sticky;
-    z-index: 50;
+    z-index: 10;
     bottom: 0;
     padding: 25px;
     left: 0;
