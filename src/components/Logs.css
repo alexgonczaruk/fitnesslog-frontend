@@ -183,7 +183,7 @@ input:disabled {
 .add-holder {
     text-align: center;
     position: sticky;
-    z-index: 150;
+    z-index: 50;
     bottom: 0;
     padding: 25px;
     left: 0;
