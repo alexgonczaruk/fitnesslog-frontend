@@ -1,0 +1,3 @@
+export const NOTES_REQUEST = "NOTES_REQUEST";
+export const NOTES_FAILURE = "NOTES_FAILURE";
+export const NOTES_SUCCESS = "NOTES_SUCCESS";

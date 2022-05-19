@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faFloppyDisk, faPlus, faTrashCan, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { editExercise } from "../actions/daysActions";
+import { deleteExercise, editExercise } from "../actions/daysActions";
 import { addExerciseName } from "../actions/exerciseNamesActions";
 import Modal from "./Modal";
 
@@ -78,6 +78,8 @@ export default function Log(props) {
         if (sets.length > 1) {
             const newSets = sets.filter((set, index) => index !== i);
             setSets(newSets);
+        } else {
+            dispatch(deleteExercise(dayId, exerciseId));
         }
     }
 
@@ -107,6 +109,10 @@ export default function Log(props) {
     const modalHandler = (exerciseName) => {
         setShowModal(true);
         setSelectedExercise(exerciseName);
+    }
+
+    const closeModalHandler = () => {
+        setShowModal(false);
     }
 
     const [clickedOutside, setClickedOutside] = useState(false);
@@ -161,7 +167,7 @@ export default function Log(props) {
                     {
                         sets.map((set, index) => (
                             <tr key={index}>
-                                <td className={ `${isEditing ? "visible" : ""}` }><FontAwesomeIcon icon={faTrashCan} className={ `edit-icon ${isEditing ? "" : "invisible"} ${sets.length === 1 ? "disabled" : ""}` } onClick={() => deleteHandler(index)}/></td>
+                                <td className={ `${isEditing ? "visible" : ""}` }><FontAwesomeIcon icon={faTrashCan} className={ `edit-icon ${isEditing ? "" : "invisible"}` } onClick={() => deleteHandler(index)}/></td>
                                 <td><input className="exercise-entry" type="text" disabled={!isEditing} value={set.weight} onChange={(e) => changeHandler(index, e, WEIGHT_FEATURES.WEIGHT)}></input></td>
                                 <td><input className="exercise-entry" type="number" min="0" disabled={!isEditing} value={set.sets} onChange={(e) => changeHandler(index, e, WEIGHT_FEATURES.SETS)}></input></td>
                                 <td><input className="exercise-entry" type="number" min="0" disabled={!isEditing} value={set.reps} onChange={(e) => changeHandler(index, e, WEIGHT_FEATURES.REPS)}></input></td>
@@ -173,7 +179,7 @@ export default function Log(props) {
                 </table>
             </form>
             {
-                showModal ? <Modal exerciseName={selectedExercise} /> : null
+                showModal ? <Modal exerciseName={selectedExercise} exerciseId={exerciseId} closeModalHandler={closeModalHandler}/> : null
             }
         </div>
     )

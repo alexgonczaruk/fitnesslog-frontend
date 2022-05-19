@@ -1,4 +1,4 @@
-import { DAYS_REQUEST, DAYS_SUCCESS, DAYS_FAILURE, ADD_EXERCISE_REQUEST, ADD_EXERCISE_SUCCESS, ADD_EXERCISE_FAILURE, EDIT_EXERCISE_REQUEST, EDIT_EXERCISE_SUCCESS, EDIT_EXERCISE_FAILURE } from "../constants/daysConstants";
+import { DAYS_REQUEST, DAYS_SUCCESS, DAYS_FAILURE, ADD_EXERCISE_REQUEST, ADD_EXERCISE_SUCCESS, ADD_EXERCISE_FAILURE, EDIT_EXERCISE_REQUEST, EDIT_EXERCISE_SUCCESS, EDIT_EXERCISE_FAILURE, DELETE_EXERCISE_REQUEST, DELETE_EXERCISE_FAILURE, DELETE_EXERCISE_SUCCESS } from "../constants/daysConstants";
 
 export const daysReducer = (state = { loading: true, days: [] }, action) => {
     switch(action.type) {
@@ -23,6 +23,19 @@ export const daysReducer = (state = { loading: true, days: [] }, action) => {
             const updatedDays = state.days.map((day) => day._id === data._id ? data : day);
             return { ...state, loading: false, days: updatedDays };
         case EDIT_EXERCISE_FAILURE:
+            return { loading: false, error: action.payload };
+        case DELETE_EXERCISE_REQUEST:
+            return { ...state, loading: true };
+        case DELETE_EXERCISE_SUCCESS:
+            let editedDays;
+            if (action.payload.updatedDay) {
+                const editedDay = action.payload.updatedDay;
+                editedDays = state.days.map((day) => day._id === editedDay._id ? editedDay : day);
+            } else {
+                editedDays = state.days.filter((day) => day._id !== action.payload);
+            }
+            return { ...state, loading: false, days: editedDays };
+        case DELETE_EXERCISE_FAILURE:
             return { loading: false, error: action.payload };
         default:
             return state;

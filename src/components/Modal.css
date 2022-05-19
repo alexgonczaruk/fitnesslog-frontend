@@ -15,11 +15,78 @@
     background-color: #fff;
     width: 75%;
     height: 50%;
+    position: relative;
+    border: 1px solid #f7f7f7;
 }
 
 .modal-holder-name {
-    padding: 10px 5px;
     font-size: large;
     font-weight: bold;
     text-align: center;
+}
+
+.modal-title-container {
+    padding: 20px 5px;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 40%;
+    margin: auto;
+}
+
+.modal-x-icon {
+    position: absolute;
+    margin: 0;
+    top: -10px;
+    right: -10px;
+    color: white;
+    background-color: #279af1;
+    border-radius: 100%;
+    padding: 4px 7px;
+    cursor: pointer;
+}
+
+.modal-edit-icon {
+    /* position: absolute; */
+    cursor: pointer;
+    width: 25px;
+    padding-left: 5px;
+    box-sizing: border-box;
+    /* right: 10%; */
+}
+
+.modal-edit-icon:hover {
+    color: #279af1;
+}
+
+.modal-delete-button {
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    border-top: 1px solid rgb(238, 236, 236);
+}
+
+.delete-btn {
+    border-radius: 0;
+    color: white;
+    background-color: #279af1;
+    font-size: medium;
+    padding: 5px 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #1480d2;
 }
