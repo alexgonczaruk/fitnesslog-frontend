@@ -3,8 +3,8 @@ import { DAYS_REQUEST, DAYS_SUCCESS, DAYS_FAILURE, ADD_EXERCISE_REQUEST, ADD_EXE
 import sameCalendarDate from "../helpers/sameCalendarDate";
 import { getExerciseNames } from "./exerciseNamesActions";
 
-// const baseURL = "https://alex-fitness-log.herokuapp.com";
-const baseURL = "";
+const baseURL = "https://alex-fitness-log.herokuapp.com";
+// const baseURL = "";
 
 export const listDays = () => async (dispatch, getState) => {
     dispatch({
