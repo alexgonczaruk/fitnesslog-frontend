@@ -1,8 +1,8 @@
 import axios from "axios";
 import { NOTES_FAILURE, NOTES_REQUEST, NOTES_SUCCESS } from "../constants/notesConstants";
 
-const baseURL = "https://alex-fitness-log.herokuapp.com";
-// const baseURL = "";
+// const baseURL = "https://alex-fitness-log.herokuapp.com";
+const baseURL = "";
 
 export const getNotes = () => async (dispatch, getState) => {
     dispatch({ type: NOTES_REQUEST });

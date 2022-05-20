@@ -15,14 +15,18 @@ export default function Modal(props) {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     useEffect(() => {
-        console.log(exercise);
-        const sorted = exercise.sets.sort((a, b) => Date.parse(b) - Date.parse(a));
+        document.body.style.overflow = 'hidden';
+    })
+
+    useEffect(() => {
+        const sorted = exercise.sets.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
         setSortedExercises(sorted);
     }, [exercise]);
 
     const dispatch = useDispatch();
 
     const closeModalHandler = () => {
+        document.body.style.overflow = 'unset';
         props.closeModalHandler();
     }
 
