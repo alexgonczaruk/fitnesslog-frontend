@@ -1,6 +1,7 @@
 import axios from "axios";
 import { DAYS_REQUEST, DAYS_SUCCESS, DAYS_FAILURE, ADD_EXERCISE_REQUEST, ADD_EXERCISE_FAILURE, ADD_EXERCISE_SUCCESS, EDIT_EXERCISE_REQUEST, EDIT_EXERCISE_SUCCESS, EDIT_EXERCISE_FAILURE, DELETE_EXERCISE_REQUEST, DELETE_EXERCISE_SUCCESS, DELETE_EXERCISE_FAILURE } from "../constants/daysConstants";
 import sameCalendarDate from "../helpers/sameCalendarDate";
+import { getExerciseNames } from "./exerciseNamesActions";
 
 const baseURL = "https://alex-fitness-log.herokuapp.com";
 // const baseURL = "";
@@ -43,19 +44,21 @@ export const editExercise = (newSets, newExercise, dayId, exerciseId) => async (
             exerciseId,
         });
         dispatch({ type: EDIT_EXERCISE_SUCCESS, payload: data });
+        dispatch(getExerciseNames());
     } catch (e) {
         console.log(e);
         dispatch({ type: EDIT_EXERCISE_FAILURE, payload: e.message });
     }
 }
 
-export const deleteExercise = (dayId, exerciseId) => async (dispatch, getState) => {
+export const deleteExercise = (dayId, exerciseId, exerciseName) => async (dispatch, getState) => {
     dispatch({ type: DELETE_EXERCISE_REQUEST });
     try {
         const days = getState().daysList.days;
         const day = days.find((day) => day._id === dayId);
-        const { data } = await axios.delete(baseURL + `/api/days/delete/${dayId}`, { data: { exercises: day.exercises, exerciseId } });
+        const { data } = await axios.delete(baseURL + `/api/days/delete/${dayId}`, { data: { exercises: day.exercises, exerciseId, exerciseName } });
         dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: Object.keys(data).length > 0 ? data : dayId });
+        dispatch(getExerciseNames());
     } catch (e) {
         console.log(e);
         dispatch({ type: DELETE_EXERCISE_FAILURE, payload: e.message });

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faFloppyDisk, faPlus, faTrashCan, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { deleteExercise, editExercise } from "../actions/daysActions";
-import { addExerciseName } from "../actions/exerciseNamesActions";
+import { addExerciseName, getExerciseNames } from "../actions/exerciseNamesActions";
 import Modal from "./Modal";
 
 export default function Log(props) {
@@ -15,7 +15,7 @@ export default function Log(props) {
 
     const [showModal, setShowModal] = useState(false);
 
-    const [selectedExercise, setSelectedExercise] = useState("");
+    const [selectedExercise, setSelectedExercise] = useState({});
 
     const exerciseNames = props.exerciseNames;
     const [filteredExerciseNames, setFilteredExerciseNames] = useState(exerciseNames);
@@ -79,7 +79,7 @@ export default function Log(props) {
             const newSets = sets.filter((set, index) => index !== i);
             setSets(newSets);
         } else {
-            dispatch(deleteExercise(dayId, exerciseId));
+            dispatch(deleteExercise(dayId, exerciseId, exercise));
         }
     }
 
@@ -88,11 +88,11 @@ export default function Log(props) {
         if (event && event.preventDefault()) {
             event.preventDefault();
         }
-        dispatch(editExercise(sets, exercise, dayId, exerciseId));
         const foundName = exerciseNames.find((exerciseName) => exerciseName.exercise.toString() === exercise.toString());
         if (!foundName) {
-            dispatch(addExerciseName(sets, exercise, currentDay));
+            dispatch(addExerciseName(exercise));
         }
+        dispatch(editExercise(sets, exercise, dayId, exerciseId));
     }
     
     const filterExerciseNamesHandler = (e) => {
@@ -106,9 +106,9 @@ export default function Log(props) {
         setClickedOutside(true);
     }
 
-    const modalHandler = (exerciseName) => {
+    const modalHandler = (exercise) => {
         setShowModal(true);
-        setSelectedExercise(exerciseName);
+        setSelectedExercise(exercise);
     }
 
     const closeModalHandler = () => {
@@ -148,7 +148,7 @@ export default function Log(props) {
                                                 filteredExerciseNames.map((exerciseName, index) => (
                                                     <div className="dropdown-option" key={index}>
                                                         <span key={index} className="exercisename-option" onClick={() => chooseExerciseNameHandler(exerciseName)}>{exerciseName.exercise}</span>
-                                                        <FontAwesomeIcon icon={faEllipsisVertical} className="info-icon" onClick={() => modalHandler(exerciseName.exercise)}/>
+                                                        <FontAwesomeIcon icon={faEllipsisVertical} className="info-icon" onClick={() => modalHandler(exerciseName)}/>
                                                     </div>
                                                 )) 
                                             }
@@ -179,7 +179,7 @@ export default function Log(props) {
                 </table>
             </form>
             {
-                showModal ? <Modal exerciseName={selectedExercise} exerciseId={exerciseId} closeModalHandler={closeModalHandler}/> : null
+                showModal ? <Modal selectedExercise={selectedExercise} exerciseId={exerciseId} closeModalHandler={closeModalHandler}/> : null
             }
         </div>
     )

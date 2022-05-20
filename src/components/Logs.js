@@ -117,7 +117,7 @@ export default function Logs() {
                         </div>
                     </div>
                     <div className="add-holder">
-                        <FontAwesomeIcon icon={!collapsed ? faCircleChevronUp : faCircleChevronDown} className="collapse" onClick={collapseHandler}/>
+                        <FontAwesomeIcon icon={collapsed ? faCircleChevronUp : faCircleChevronDown} className="collapse" onClick={collapseHandler}/>
                         { 
                             !collapsed ? 
                             <div>

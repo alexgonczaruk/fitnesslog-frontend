@@ -5,6 +5,7 @@ const baseURL = "https://alex-fitness-log.herokuapp.com";
 // const baseURL = "";
 
 export const getExerciseNames = () => async (dispatch, getState) => {
+    console.log("GETTING NAMES")
     dispatch({ type: EXERCISE_NAMES_REQUEST });
     try {
         const { data } = await axios.get(baseURL + "/api/exercises");
@@ -16,10 +17,10 @@ export const getExerciseNames = () => async (dispatch, getState) => {
     }
 }
 
-export const addExerciseName = (sets, exerciseName, currentDay) => async (dispatch, getState) => {
+export const addExerciseName = (exerciseName) => async (dispatch, getState) => {
     dispatch({ type: EXERCISE_NAMES_REQUEST });
     try {
-        const { data } = await axios.post(baseURL + "/api/exercises/add", { sets, exerciseName, currentDay });
+        const { data } = await axios.post(baseURL + "/api/exercises/add", { exerciseName });
         dispatch({ type: EXERCISE_NAMES_SUCCESS, payload: data });
     } catch (e) {
         console.log(e);
