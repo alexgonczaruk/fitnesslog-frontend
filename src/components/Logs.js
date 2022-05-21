@@ -10,6 +10,7 @@ import { faCircleChevronLeft, faCircleChevronRight, faPlus, faCircleMinus, faCir
 import Log from "./Log.js";
 import { getExerciseNames } from '../actions/exerciseNamesActions';
 import { getNotes, updateNote } from '../actions/notesActions';
+import dateFormatter from '../helpers/dateFormatter';
 
 export default function Logs() {
     const [currentDay, setCurrentDay] = useState(Date.now());
@@ -28,7 +29,6 @@ export default function Logs() {
     const notesList = useSelector(state => state.notes);
     const { notes } = notesList;
 
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const CHEVRON_OPTIONS = {
         INCREASE: 1,
         DECREASE: -1,
@@ -87,8 +87,14 @@ export default function Logs() {
     return (
         <div className="Log">
             {
-                loading ? <div>loading</div> :
-                error ? <div>error</div> : 
+                loading ? 
+                <div className="loader-container">
+                    <div className="loader"></div>
+                </div> 
+                : 
+                error ? <div className="loader-container">
+                    <div>An Error has occurred within the app. Please reload.</div>
+                </div> : 
                 <div>
                     <div>
                         <div className="Flex">
@@ -97,7 +103,7 @@ export default function Logs() {
                                 </div>
                                     <div className="current-date">
                                         {
-                                            new Date(currentDay).toLocaleDateString("en-US", options)
+                                            dateFormatter(currentDay)
                                         }
                                     </div>
                                 <div className="chevron-container">
@@ -109,10 +115,10 @@ export default function Logs() {
                                 Object.keys(day).length > 0 && day.exercises ?
                                 day.exercises.map((exercise) => (
                                     <div className="exercise" key={exercise.exercise + Math.random()}>
-                                        <Log exercise={exercise} dayId={day._id} exerciseNames={exerciseNames} currentDay={currentDay}></Log>
+                                        <Log exercise={exercise} dayId={day._id} exerciseNames={exerciseNames} currentDay={currentDay} otherExercises={day.exercises}></Log>
                                     </div>
                                 )) :
-                                <div className="no-data">No data for {new Date(currentDay).toLocaleDateString("en-US", options)}</div>
+                                <div className="no-data">No data for { dateFormatter(currentDay) }</div>
                             }
                         </div>
                     </div>
@@ -130,7 +136,7 @@ export default function Logs() {
                                         <div className="notes-title">Notes</div>
                                         <FontAwesomeIcon icon={faCircleCheck} className={`check-icon ${notesSaved ? 'saved' : 'unsaved'}`} onClick={submitNotesHandler}/>
                                     </div>
-                                    <textarea id="notes" placeholder={`My notes for ${new Date(currentDay).toLocaleDateString("en-US", options)}`} onChange={changeNoteHandler} value={note}></textarea>
+                                    <textarea id="notes" placeholder={`My notes for ${ dateFormatter(currentDay) }`} onChange={changeNoteHandler} value={note}></textarea>
                                 </div>
                             </div>
                             : null

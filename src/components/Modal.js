@@ -4,6 +4,7 @@ import { faFloppyDisk, faPenToSquare, faXmark } from "@fortawesome/free-solid-sv
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { deleteExerciseName, getExerciseNames } from "../actions/exerciseNamesActions";
+import dateFormatter from "../helpers/dateFormatter";
 
 
 export default function Modal(props) {
@@ -12,7 +13,6 @@ export default function Modal(props) {
     // const [exerciseName, setExerciseName] = useState(props.selectedExercise.exercise);
     const exercise = props.selectedExercise;
     const exerciseName = exercise.exercise;
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -69,7 +69,7 @@ export default function Modal(props) {
                         {
                             sortedExercises.map((outerSet, outerIndex) => (
                                 <div className="modal-entry" key={outerIndex}>
-                                    <div className="modal-entry-date">{ new Date(outerSet.date).toLocaleDateString("en-US", options) }</div>
+                                    <div className="modal-entry-date">{ dateFormatter(outerSet.date) }</div>
                                     <table>
                                         <thead>
                                             <tr>

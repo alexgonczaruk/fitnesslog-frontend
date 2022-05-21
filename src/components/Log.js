@@ -22,7 +22,7 @@ export default function Log(props) {
 
     const dayId = props.dayId;
     const exerciseId = props.exercise._id;
-    const currentDay = props.currentDay;
+    const otherExercises = props.otherExercises;
 
     const dispatch = useDispatch();
 
@@ -32,12 +32,29 @@ export default function Log(props) {
         REPS: "REPS",
     };
 
+    const CLICKED_HOME = {
+        TRUE: "TRUE", 
+        FALSE: "FALSE",
+    };
+
     const nameHandler = (e) => {
         setExercise(e.target.value);
     }
 
     const editHandler = (e) => {
         if (isEditing) {
+            for (let i=0; i<sets.length; i++) {
+                if (exercise.length === 0 || sets[i].weight.length === 0 || sets[i].sets.length === 0 || sets[i].reps.length === 0) {
+                    console.log(exercise, sets[i]);
+                    alert("A field has not been filled out. Please fill out all fields.");
+                    return;
+                }
+            }
+            const foundExercise = otherExercises.find((ex) => ex.exercise === exercise);
+            if (foundExercise && foundExercise._id !== exerciseId) {
+                alert(`${exercise} already exists today.`);
+                return;
+            }
             setIsEditing(false);
             submitHandler(e);
         } else {
@@ -84,7 +101,6 @@ export default function Log(props) {
     }
 
     const submitHandler = (event) => {
-        if (exercise === "") return;
         if (event && event.preventDefault()) {
             event.preventDefault();
         }
@@ -106,9 +122,15 @@ export default function Log(props) {
         setClickedOutside(true);
     }
 
-    const modalHandler = (exercise) => {
+    const modalHandler = (ex, clickedHome) => {
+        if (clickedHome === CLICKED_HOME.TRUE) {
+            const foundExercise = exerciseNames.find((exerciseName) => ex === exerciseName.exercise);
+            if (!foundExercise) return;
+            setSelectedExercise(foundExercise);
+        } else {
+            setSelectedExercise(ex);
+        }
         setShowModal(true);
-        setSelectedExercise(exercise);
     }
 
     const closeModalHandler = () => {
@@ -140,6 +162,9 @@ export default function Log(props) {
                         {/* <th className="exercise-name"><input className="exercise-name" type="text" disabled={!isEditing} value={exercise} onChange={nameHandler}></input></th> */}
                         <th className="exercise-name-holder" ref={showDropdownRef}>
                             <input className="exercise-name" type="text" disabled={!isEditing} value={exercise} onClick={handleClickInside} onKeyUp={(e) => filterExerciseNamesHandler(e)} onChange={nameHandler}></input>
+                            {   !isEditing && 
+                                <div className="exercise-name-btn" onClick={() => modalHandler(exercise, CLICKED_HOME.TRUE)}></div>
+                            }
                             { isEditing && 
                                 <div className={ `dropdown ${filteredExerciseNames && Object.keys(filteredExerciseNames).length > 0 && !clickedOutside ? 'dropdown-visible' : ''}` }>
                                     { filteredExerciseNames && Object.keys(filteredExerciseNames).length > 0 && !clickedOutside && 
@@ -148,7 +173,7 @@ export default function Log(props) {
                                                 filteredExerciseNames.map((exerciseName, index) => (
                                                     <div className="dropdown-option" key={index}>
                                                         <span key={index} className="exercisename-option" onClick={() => chooseExerciseNameHandler(exerciseName)}>{exerciseName.exercise}</span>
-                                                        <FontAwesomeIcon icon={faEllipsisVertical} className="info-icon" onClick={() => modalHandler(exerciseName)}/>
+                                                        <FontAwesomeIcon icon={faEllipsisVertical} className="info-icon" onClick={() => modalHandler(exerciseName, CLICKED_HOME.FALSE)}/>
                                                     </div>
                                                 )) 
                                             }

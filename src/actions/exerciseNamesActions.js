@@ -1,8 +1,8 @@
 import axios from "axios";
 import { EXERCISE_NAMES_FAILURE, EXERCISE_NAMES_REQUEST, EXERCISE_NAMES_SUCCESS } from "../constants/exerciseNamesConstants";
 
-const baseURL = "https://alex-fitness-log.herokuapp.com";
-// const baseURL = "";
+// const baseURL = "https://alex-fitness-log.herokuapp.com";
+const baseURL = "";
 
 export const getExerciseNames = () => async (dispatch, getState) => {
     console.log("GETTING NAMES")
